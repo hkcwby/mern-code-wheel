@@ -18,6 +18,8 @@ const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("MongoDB database connection made!");
 });
+const dataWheelRouter = require("./data-wheel-routes.js");
+app.use("/datawheel", dataWheelRouter);
 
 app.listen(port, () => {
   console.log(`its alive! port:${port}`);
