@@ -1,0 +1,234 @@
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+.inner-wheel {
+  left: 7.5vh;
+  top: 7.5vh;
+  border-radius: 50%;
+  position: absolute;
+  height: 75vh;
+  width: 75vh;
+  border-color: black;
+  border-style: solid;
+  border-width: 0.3vh;
+}
+#ring-wheel {
+  transform: translateX(36.5vh) translateY(36.5vh);
+  border-radius: 50%;
+  height: 1vw;
+  width: 1vw;
+  border-color: burlywood;
+  border-style: solid;
+  border-width: 0.2vw;
+}
+
+/* this is done for the outer wheel the inner wheel and each layer of data points */
+
+/* place each item at the center of the wheel using absolute then */
+/* left and top values depending on the width of the requried text box */
+/* translate Y to position the data at the appropriate radial distance */
+.outer {
+  position: absolute;
+  left: calc(50% - 8vh);
+  top: calc(50% - 1vh);
+  width: 16vh;
+  transform: translateY(-42vh);
+}
+.inner {
+  position: absolute;
+  left: calc(50% - 8vh);
+  top: calc(50% - 1vh);
+  width: 16vh;
+  transform: translateY(-35vh);
+}
+.layer-one {
+  position: absolute;
+  left: calc(50% - 8vh);
+  top: calc(50% - 1vh);
+  width: 16vh;
+  transform: translateY(-32vh);
+}
+.layer-two {
+  position: absolute;
+  left: calc(50% - 8vh);
+  top: calc(50% - 1vh);
+  width: 16vh;
+  transform: translateY(-28vh);
+}
+.layer-three {
+  position: absolute;
+  left: calc(50% - 4.5vh);
+  top: calc(50% - 1vh);
+  width: 9vh;
+  transform: translateY(-25vh);
+}
+.layer-four {
+  position: absolute;
+  left: calc(50% - 4.5vh);
+  top: calc(50% - 1vh);
+  width: 9vh;
+  transform: translateY(-22vh);
+}
+.layer-five {
+  position: absolute;
+  left: calc(50% - 3.5vh);
+  top: calc(50% - 1vh);
+  width: 7vh;
+  transform: translateY(-19vh);
+}
+.layer-six {
+  position: absolute;
+  left: calc(50% - 2.5vh);
+  top: calc(50% - 2vh);
+  width: 5vh;
+  transform: translateY(-16vh);
+}
+.layer-seven {
+  position: absolute;
+  left: calc(50% - 2.5vh);
+  top: calc(50% - 2vh);
+  width: 5.5vh;
+  transform: translateY(-12vh);
+}
+.layer-eight {
+  position: absolute;
+  left: calc(50% - 2.5vh);
+  top: calc(50% - 1vh);
+  width: 5.5vh;
+  transform: translateY(-7vh);
+}
+
+/* title, subtitle and logo are always the same distance from the center */
+.title {
+  position: absolute;
+  font-size: 2em;
+  left: calc(50% - 12vh);
+  top: calc(50% - 6vh);
+  transform: translateY(-28vh);
+}
+
+.subtitle {
+  position: absolute;
+  font-size: 1.4em;
+  left: calc(50% - 14.5vh);
+  top: calc(50% - 5vh);
+  transform: translateY(-25vh);
+}
+
+.logo {
+  height: 8vh;
+  position: absolute;
+  left: calc(50% - 9vh);
+  top: calc(50% - 5vh);
+  transform: translateY(-16vh);
+}
+
+/* pivot each data item to a specific angle around the wheel */
+.pos-data-0 {
+  rotate: 0deg;
+}
+.pos-data-1 {
+  rotate: 22.5deg;
+}
+.pos-data-2 {
+  rotate: 45deg;
+}
+.pos-data-3 {
+  rotate: 67.5deg;
+}
+.pos-data-4 {
+  rotate: 90deg;
+}
+.pos-data-5 {
+  rotate: 112.5deg;
+}
+.pos-data-6 {
+  rotate: 135deg;
+}
+.pos-data-7 {
+  rotate: 157.5deg;
+}
+.pos-data-8 {
+  rotate: 180deg;
+}
+.pos-data-9 {
+  rotate: 202.5deg;
+}
+.pos-data-10 {
+  rotate: 225deg;
+}
+.pos-data-11 {
+  rotate: 247.5deg;
+}
+.pos-data-12 {
+  rotate: 270deg;
+}
+.pos-data-13 {
+  rotate: 292.5deg;
+}
+.pos-data-14 {
+  rotate: 315deg;
+}
+.pos-data-15 {
+  rotate: 337.5deg;
+}
+
+/* the title, subtitle and logo are at an off angle between two points on the wheel */
+
+.pos-logo-title-0 {
+  rotate: 11.25deg;
+}
+.pos-logo-title-1 {
+  rotate: 33.75deg;
+}
+.pos-logo-title-2 {
+  rotate: 56.25deg;
+}
+.pos-logo-title-3 {
+  rotate: 78.75deg;
+}
+.pos-logo-title-4 {
+  rotate: 101.25deg;
+}
+.pos-logo-title-5 {
+  rotate: 123.75deg;
+}
+.pos-logo-title-6 {
+  rotate: 146.25deg;
+}
+.pos-logo-title-7 {
+  rotate: 168.75deg;
+}
+.pos-logo-title-8 {
+  rotate: 191.25deg;
+}
+.pos-logo-title-9 {
+  rotate: 213.75deg;
+}
+.pos-logo-title-10 {
+  rotate: 236.25deg;
+}
+.pos-logo-title-11 {
+  rotate: 258.75deg;
+}
+.pos-logo-title-12 {
+  rotate: 281.25deg;
+}
+.pos-logo-title-13 {
+  rotate: 303.75deg;
+}
+.pos-logo-title-14 {
+  rotate: 326.25deg;
+}
+.pos-logo-title-15 {
+  rotate: 348.75deg;
+}
+
+/* numbers are emboldened here for easy reference by the user */
+.number {
+  font-weight: bold;
+}
