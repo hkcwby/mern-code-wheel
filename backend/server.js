@@ -11,7 +11,11 @@ app.use(cors());
 app.use(express.json());
 
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, {});
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  dbName: "codeWheel",
+});
 // mongoose.connect(uri, { useNewURLParser: true, useCreateIndex: true });
 
 const connection = mongoose.connection;
