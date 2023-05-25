@@ -1,3 +1,18 @@
+// import useEffect from "react";
+
+// useEffect(() => {
+//   console.log("before", Object.keys(wheelData.Cyberspace));
+//   axios
+//     .get("http://localhost:5555/datawheel/fetchdata?term=cyberspace")
+//     .then((res) => {
+//       // console.log(res.data);
+//       wheelData.Chatsubo = res.data;
+//     })
+//     .then(console.log("after", Object.keys(wheelData.Cyberspace)));
+// }, []);
+
+// console.log(JSON.stringify(cyberspace));
+
 const chatsubo = {
   Cyberdeck: { AI: 71226, "Fuji Electric": 6124 },
   Comlink: "",

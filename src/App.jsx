@@ -512,10 +512,16 @@ function App() {
   }
 
   useEffect(() => {
+    console.log("before", wheelData.Cyberspace);
     axios
       .get("http://localhost:5555/datawheel/fetchdata?term=chatsubo")
-      .then((res) => console.log(res.data));
-  });
+      .then((res) => {
+        const myData = JSON.parse(res.data[0].data);
+        console.log(myData);
+        // wheelData.Cyberspace = JSON.parse(res.data[0].data);
+      })
+      .then(console.log("after", wheelData.Cyberspace));
+  }, []);
 
   return (
     <div className="App">
