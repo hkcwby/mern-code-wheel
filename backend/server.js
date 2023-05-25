@@ -16,7 +16,6 @@ mongoose.connect(uri, {
   useUnifiedTopology: true,
   dbName: "codeWheel",
 });
-// mongoose.connect(uri, { useNewURLParser: true, useCreateIndex: true });
 
 const connection = mongoose.connection;
 connection.once("open", () => {

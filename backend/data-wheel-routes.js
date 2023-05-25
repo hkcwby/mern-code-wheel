@@ -7,4 +7,15 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/add").post((req, res) => {
+  const term = req.body.term;
+  const data = req.body.data;
+  const newWheelData = new WheelData({ term, data });
+
+  newWheelData
+    .save()
+    .then(() => res.json("Data Added!"))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 module.exports = router;
