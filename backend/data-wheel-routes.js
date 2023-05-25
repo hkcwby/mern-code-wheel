@@ -7,6 +7,12 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/fetchdata").get((req, res) => {
+  WheelData.find({ term: req.query.term })
+    .then((data) => res.json(data))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 router.route("/add").post((req, res) => {
   const term = req.body.term;
   const data = req.body.data;

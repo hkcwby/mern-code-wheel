@@ -5,6 +5,7 @@ import Wheel from "./components/Wheel.jsx";
 import Info from "./components/Info.jsx";
 import "./components/info.css";
 import "./components/wheel.css";
+import axios from "axios";
 
 function App() {
   //our outer wheel options are imported from the datasets stored in the assets folder
@@ -509,6 +510,12 @@ function App() {
   function infoToggle() {
     setInfo(!info);
   }
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5555/datawheel/fetchdata?term=chatsubo")
+      .then((res) => console.log(res.data));
+  });
 
   return (
     <div className="App">
