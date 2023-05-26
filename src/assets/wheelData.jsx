@@ -1,18 +1,3 @@
-// import useEffect from "react";
-
-// useEffect(() => {
-//   console.log("before", Object.keys(wheelData.Cyberspace));
-//   axios
-//     .get("http://localhost:5555/datawheel/fetchdata?term=cyberspace")
-//     .then((res) => {
-//       // console.log(res.data);
-//       wheelData.Chatsubo = res.data;
-//     })
-//     .then(console.log("after", Object.keys(wheelData.Cyberspace)));
-// }, []);
-
-// console.log(JSON.stringify(cyberspace));
-
 const chatsubo = {
   Cyberdeck: { AI: 71226, "Fuji Electric": 6124 },
   Comlink: "",
@@ -317,7 +302,7 @@ const nightCityNews = {
   "Justice Booth": { flatline: 132077 },
 };
 
-export const wheelData = {
+export const importWheelData = {
   Chatsubo: chatsubo,
   Cyberspace: cyberspace,
   Gemeinschaft: gemeinschaft,
@@ -374,4 +359,30 @@ export const outerWheel = [
   "Night City News",
 ];
 
-export default wheelData;
+//A rudimentary loader for the data into Atlas Cloud DB
+
+// import axios from "axios";
+
+// axios.post(`http://localhost:5555/datawheel/add?term=nightCityNews`, {
+//   term: "nightCityNews",
+//   data: JSON.stringify(nightCityNews),
+// });
+
+// chatsubo;
+// cyberspace;
+// gemeinschaft;
+// crazyEdo;
+// microsofts;
+// cheapHotel;
+// juliusDeane;
+// donutWorld;
+// lawbot;
+// database;
+// shiva;
+// freeside;
+// softwarez;
+// matrix;
+// mattShaw;
+// nightCityNews;
+
+export default importWheelData;

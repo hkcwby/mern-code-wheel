@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { wheelData, outerWheel } from "./assets/wheelData";
+import { importWheelData, outerWheel } from "./assets/wheelData";
 import svg from "./assets/Infobox.svg";
 import Wheel from "./components/Wheel.jsx";
 import Info from "./components/Info.jsx";
@@ -11,6 +11,38 @@ function App() {
   //our outer wheel options are imported from the datasets stored in the assets folder
   /* our inner wheel data are the keys from our wheelData object stored in the assets folder;
   we use Chatsubo's keys but each of the options has identical keys representing the inner wheel*/
+  const [wheelData, setWheelData] = useState(importWheelData);
+
+  useEffect(() => {
+    // declare the async data fetching function
+    const fetchWheelData = async (term = "chatsubo") => {
+      // get the data from the api
+      const reponse = await axios.get(
+        `http://localhost:5555/datawheel/fetchdata?term=${term}`
+      );
+      const newData = await JSON.parse(reponse.data[0].data);
+
+      wheelData[term] = newData;
+    };
+
+    // call the function
+    fetchWheelData()
+      // make sure to catch any error
+      .catch(console.error);
+  }, []);
+
+  // useEffect(() => {
+  //   console.log("before", wheelData.Cyberspace);
+  //   axios
+  //     .get("http://localhost:5555/datawheel/fetchdata?term=chatsubo")
+  //     .then((res) => {
+  //       const myData = JSON.parse(res.data[0].data);
+  //       console.log(myData);
+  //       // wheelData.Cyberspace = JSON.parse(res.data[0].data);
+  //     })
+  //     .then(console.log("after", wheelData.Cyberspace));
+  // }, []);
+
   const innerWheel = Object.keys(wheelData.Chatsubo);
   // defining the variables that change dependent on wheel positions and start their values
   let [
@@ -510,18 +542,6 @@ function App() {
   function infoToggle() {
     setInfo(!info);
   }
-
-  useEffect(() => {
-    console.log("before", wheelData.Cyberspace);
-    axios
-      .get("http://localhost:5555/datawheel/fetchdata?term=chatsubo")
-      .then((res) => {
-        const myData = JSON.parse(res.data[0].data);
-        console.log(myData);
-        // wheelData.Cyberspace = JSON.parse(res.data[0].data);
-      })
-      .then(console.log("after", wheelData.Cyberspace));
-  }, []);
 
   return (
     <div className="App">
