@@ -593,5 +593,12 @@ export const theMatrix = {
   },
 };
 
+//A SIMPLE LOADER TO PUT THE FILES INTO MONGODB ONE AT A TIME EG chatsuboJusticeBooth
+// import axios from "axios";
+
+// axios.post(`http://localhost:5555/datawheel/add`, {
+//   term: "chatsuboJusticeBooth",
+//   data: JSON.stringify(chatsuboJusticeBooth),
+// });
+
 export default theMatrix;
-// console.log(theMatrix.Chatsubo.Comlink);
