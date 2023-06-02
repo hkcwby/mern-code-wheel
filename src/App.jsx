@@ -1,35 +1,37 @@
 import { useState, useEffect } from "react";
-import { importWheelData, outerWheel } from "./assets/wheelData";
 import svg from "./assets/Infobox.svg";
 import Wheel from "./components/Wheel.jsx";
 import Info from "./components/Info.jsx";
 import "./components/info.css";
 import "./components/wheel.css";
 import axios from "axios";
+import theMatrix from "./assets/wheelData";
 
 function App() {
+  const [loading, setLoading] = useState(false);
+
   //our outer wheel options are imported from the datasets stored in the assets folder
   /* our inner wheel data are the keys from our wheelData object stored in the assets folder;
   we use Chatsubo's keys but each of the options has identical keys representing the inner wheel*/
-  const [wheelData, setWheelData] = useState(importWheelData);
+  // const [wheelData, setWheelData] = useState(importWheelData);
 
-  useEffect(() => {
-    // declare the async data fetching function
-    const fetchWheelData = async (term = "chatsubo") => {
-      // get the data from the api
-      const reponse = await axios.get(
-        `http://localhost:5555/datawheel/fetchdata?term=${term}`
-      );
-      const newData = await JSON.parse(reponse.data[0].data);
+  // useEffect(() => {
+  //   // declare the async data fetching function
+  //   const fetchWheelData = async (term = "chatsubo") => {
+  //     // get the data from the api
+  //     const reponse = await axios.get(
+  //       `http://localhost:5555/datawheel/fetchdata?term=${term}`
+  //     );
+  //     const newData = await JSON.parse(reponse.data[0].data);
 
-      wheelData[term] = newData;
-    };
+  //     wheelData[term] = newData;
+  //   };
 
-    // call the function
-    fetchWheelData()
-      // make sure to catch any error
-      .catch(console.error);
-  }, []);
+  //   // call the function
+  //   fetchWheelData()
+  //     // make sure to catch any error
+  //     .catch(console.error);
+  // }, []);
 
   // useEffect(() => {
   //   console.log("before", wheelData.Cyberspace);
@@ -43,7 +45,6 @@ function App() {
   //     .then(console.log("after", wheelData.Cyberspace));
   // }, []);
 
-  const innerWheel = Object.keys(wheelData.Chatsubo);
   // defining the variables that change dependent on wheel positions and start their values
   let [
     asanoComputing,
@@ -246,8 +247,9 @@ function App() {
     "",
   ];
   //creating react state management for each of these data positions above
-  const [outer, setOuter] = useState(outerWheel);
-  const [inner, setInner] = useState(innerWheel);
+
+  const [outer, setOuter] = useState(Object.keys(theMatrix));
+  const [inner, setInner] = useState(Object.keys(theMatrix.Chatsubo));
 
   const [layers, setLayers] = useState({
     layerOne: layerOneWheel,
@@ -264,51 +266,23 @@ function App() {
   //a function to update the various data values that appear on the wheel
   function updateValues(inner, outer) {
     //check the corresponding outside value that matches the inner value
-    const outsideValueCyberdeck = outer[inner.indexOf("Cyberdeck")];
-    //the data is nested objects outer value: innervalue : known parameters
-    ai = wheelData[outsideValueCyberdeck]["Cyberdeck"]["AI"];
-    fujiElectric =
-      wheelData[outsideValueCyberdeck]["Cyberdeck"]["Fuji Electric"];
-    //repeat the process for each relevant inside value and its corresponding outside value
-    const outsideValueRatz = outer[inner.indexOf("Ratz")];
-    zionCluster = wheelData[outsideValueRatz]["Ratz"]["Zion Cluster"];
-    chibaCity = wheelData[outsideValueRatz]["Ratz"]["Chiba City"];
 
-    const outsideValueHolografix = outer[inner.indexOf("Holografix")];
-    asanoComputing =
-      wheelData[outsideValueHolografix]["Holografix"]["Asano Computing"];
-    hitachiBiotech =
-      wheelData[outsideValueHolografix]["Holografix"]["Hitachi Biotech"];
-
-    const outsideValueLarryMoe = outer[inner.indexOf("Larry Moe")];
-    cryptology = wheelData[outsideValueLarryMoe]["Larry Moe"]["Cryptology"];
-
-    const outsideValuePAX = outer[inner.indexOf("PAX")];
-    spaceColony = wheelData[outsideValuePAX]["PAX"]["Space colony"];
-    holyJoystick = wheelData[outsideValuePAX]["PAX"]["Holy Joystick"];
-
-    const outsideValueSkillChips = outer[inner.indexOf("Skill chips")];
-    bankOfBerne =
-      wheelData[outsideValueSkillChips]["Skill chips"]["Bank of Berne"];
-
-    const outsideValueShinsPawn = outer[inner.indexOf("Shin's Pawn")];
-    spacedock = wheelData[outsideValueShinsPawn]["Shin's Pawn"]["Spacedock"];
-    onoSendai = wheelData[outsideValueShinsPawn]["Shin's Pawn"]["Ono-Sendai"];
-
-    const outsideValueGentlemanLoser = outer[inner.indexOf("Gentleman Loser")];
-    marcusGarvey =
-      wheelData[outsideValueGentlemanLoser]["Gentleman Loser"]["Marcus Garvey"];
-    bankOfZurich =
-      wheelData[outsideValueGentlemanLoser]["Gentleman Loser"][
-        "Bank of Zurich"
-      ];
-
-    const outsideValueMaasBiolabs = outer[inner.indexOf("Maas Biolabs")];
-    compuJudge =
-      wheelData[outsideValueMaasBiolabs]["Maas Biolabs"]["Compu-judge"];
-
-    const outsideValueJusticeBooth = outer[inner.indexOf("Justice Booth")];
-    flatline = wheelData[outsideValueJusticeBooth]["Justice Booth"]["flatline"];
+    ai = theMatrix[outer[0]][inner[0]]["AI"];
+    fujiElectric = theMatrix[outer[0]][inner[0]]["Fuji Electric"];
+    zionCluster = theMatrix[outer[0]][inner[0]]["Zion Cluster"];
+    chibaCity = theMatrix[outer[0]][inner[0]]["Chiba City"];
+    asanoComputing = theMatrix[outer[0]][inner[0]]["Asano Computing"];
+    hitachiBiotech = theMatrix[outer[0]][inner[0]]["Hitachi Biotech"];
+    cryptology = theMatrix[outer[0]][inner[0]]["Cryptology"];
+    spaceColony = theMatrix[outer[0]][inner[0]]["Space Colony"];
+    holyJoystick = theMatrix[outer[0]][inner[0]]["Holy Joystick"];
+    bankOfBerne = theMatrix[outer[0]][inner[0]]["Bank of Berne"];
+    spacedock = theMatrix[outer[0]][inner[0]]["Spacedock"];
+    onoSendai = theMatrix[outer[0]][inner[0]]["Ono-Sendai"];
+    marcusGarvey = theMatrix[outer[0]][inner[0]]["Marcus Garvey"];
+    bankOfZurich = theMatrix[outer[0]][inner[0]]["Bank of Zurich"];
+    compuJudge = theMatrix[outer[0]][inner[0]]["Compu-judge"];
+    flatline = theMatrix[outer[0]][inner[0]]["flatline"];
   }
   //shifts the innerwheel positions and refreshes data values
   function innerWheelShift(position) {
