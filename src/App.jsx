@@ -17,19 +17,48 @@ function App() {
     setInfo(!info);
   }
 
-  // useEffect(() => {
-  //   console.log("before", wheelData.Cyberspace);
-  //   axios
-  //     .get("http://localhost:5555/datawheel/fetchdata?term=chatsubo")
-  //     .then((res) => {
-  //       const myData = JSON.parse(res.data[0].data);
-  //       console.log(myData);
-  //       // wheelData.Cyberspace = JSON.parse(res.data[0].data);
-  //     })
-  //     .then(console.log("after", wheelData.Cyberspace));
-  // }, []);
-
   // defining the variables that change dependent on wheel positions and start their values
+
+  const [outer, setOuter] = useState(Object.keys(theMatrix));
+  const [inner, setInner] = useState(Object.keys(theMatrix.Chatsubo));
+
+  // const [outer, setOuter] = useState([
+  //   "Chatsubo",
+  //   "Cyberspace",
+  //   "Gemeinschaft",
+  //   "Crazy Edo",
+  //   "Microsofts",
+  //   "Cheap Hotel",
+  //   "Julius Deane",
+  //   "Donut World",
+  //   "Lawbot",
+  //   "database",
+  //   "Shiva",
+  //   "Freeside",
+  //   "softwarez",
+  //   "Matrix",
+  //   "Matt Shaw",
+  //   "Night City News",
+  // ]);
+
+  // const [inner, setInner] = useState([
+  //   "Cyberdeck",
+  //   "Comlink",
+  //   "Icebreaker",
+  //   "Rom Construct",
+  //   "Cowboy",
+  //   "Emperor Norton",
+  //   "Cyberjack",
+  //   "Ratz",
+  //   "Holografix",
+  //   "Larry Moe",
+  //   "PAX",
+  //   "Skill chips",
+  //   "Shin's Pawn",
+  //   "Gentleman Loser",
+  //   "Maas Biolabs",
+  //   "Justice Booth",
+  // ]);
 
   const [wheelData, setWheelData] = useState({
     asanoComputing: "61254",
@@ -49,41 +78,7 @@ function App() {
     hitachiBiotech: "672",
     compuJudge: "054",
   });
-  // let [
-  //   asanoComputing,
-  //   spacedock,
-  //   spaceColony,
-  //   flatline,
-  //   ai,
-  //   zionCluster,
-  //   marcusGarvey,
-  //   cryptology,
-  //   chibaCity,
-  //   bankOfBerne,
-  //   bankOfZurich,
-  //   fujiElectric,
-  //   holyJoystick,
-  //   onoSendai,
-  //   hitachiBiotech,
-  //   compuJudge,
-  // ] = [
-  //   "061254",
-  //   "031770",
-  //   "054127",
-  //   "132077",
-  //   "71226",
-  //   "43267",
-  //   "45771",
-  //   "67237",
-  //   "3347",
-  //   "5165",
-  //   "1053",
-  //   "6124",
-  //   "333",
-  //   "725",
-  //   "672",
-  //   "054",
-  // ];
+
   /*setting up each layer of the wheel based upon a start position of "Chatsubo":"Cyberdeck"
    at the 12 O'clock position*/
   const layerOneWheel = [
@@ -251,9 +246,6 @@ function App() {
   ];
   //creating react state management for each of these data positions above
 
-  const [outer, setOuter] = useState(Object.keys(theMatrix));
-  const [inner, setInner] = useState(Object.keys(theMatrix.Chatsubo));
-
   const [layers, setLayers] = useState({
     layerOne: layerOneWheel,
     layerTwo: layerTwoWheel,
@@ -266,44 +258,6 @@ function App() {
     logoTitle: logoTitleWheel,
   });
 
-  //a function to update the various data values that appear on the wheel
-  // function updateValues(newData) {
-
-  //   ai = newData["AI"];
-  //   fujiElectric = newData["Fuji Electric"];
-  //   zionCluster = newData["Zion Cluster"];
-  //   chibaCity = newData["Chiba City"];
-  //   asanoComputing = newData["Asano Computing"];
-  //   hitachiBiotech = newData["Hitachi Biotech"];
-  //   cryptology = newData["Cryptology"];
-  //   spaceColony = newData["Space Colony"];
-  //   holyJoystick = newData["Holy Joystick"];
-  //   bankOfBerne = newData["Bank of Berne"];
-  //   spacedock = newData["Spacedock"];
-  //   onoSendai = newData["Ono-Sendai"];
-  //   marcusGarvey = newData["Marcus Garvey"];
-  //   bankOfZurich = newData["Bank of Zurich"];
-  //   compuJudge = newData["Compu-judge"];
-  //   flatline = newData["flatline"];
-  // }
-  // function updateValues(inner, outer) {
-  //   ai = theMatrix[outer[0]][inner[0]]["AI"];
-  //   fujiElectric = theMatrix[outer[0]][inner[0]]["Fuji Electric"];
-  //   zionCluster = theMatrix[outer[0]][inner[0]]["Zion Cluster"];
-  //   chibaCity = theMatrix[outer[0]][inner[0]]["Chiba City"];
-  //   asanoComputing = theMatrix[outer[0]][inner[0]]["Asano Computing"];
-  //   hitachiBiotech = theMatrix[outer[0]][inner[0]]["Hitachi Biotech"];
-  //   cryptology = theMatrix[outer[0]][inner[0]]["Cryptology"];
-  //   spaceColony = theMatrix[outer[0]][inner[0]]["Space Colony"];
-  //   holyJoystick = theMatrix[outer[0]][inner[0]]["Holy Joystick"];
-  //   bankOfBerne = theMatrix[outer[0]][inner[0]]["Bank of Berne"];
-  //   spacedock = theMatrix[outer[0]][inner[0]]["Spacedock"];
-  //   onoSendai = theMatrix[outer[0]][inner[0]]["Ono-Sendai"];
-  //   marcusGarvey = theMatrix[outer[0]][inner[0]]["Marcus Garvey"];
-  //   bankOfZurich = theMatrix[outer[0]][inner[0]]["Bank of Zurich"];
-  //   compuJudge = theMatrix[outer[0]][inner[0]]["Compu-judge"];
-  //   flatline = theMatrix[outer[0]][inner[0]]["flatline"];
-  // }
   //shifts the innerwheel positions and refreshes data values
   function innerWheelShift(position) {
     //tracks the current position of the wheel tracking based on the location of the original top position
@@ -542,7 +496,7 @@ function App() {
       const newData = await JSON.parse(reponse.data[0].data);
       console.log("this is called data", newData);
       // updateValues(newData);
-      setWheelData({
+      await setWheelData({
         ai: newData["AI"],
         fujiElectric: newData["Fuji Electric"],
         zionCluster: newData["Zion Cluster"],
