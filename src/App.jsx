@@ -8,9 +8,7 @@ import axios from "axios";
 import theMatrix from "./assets/wheelData";
 
 function App() {
-  // const [loading, setLoading] = useState(false);
-
-  //loading information toggle function
+  //information toggle function
 
   const [info, setInfo] = useState(true);
   function infoToggle() {
@@ -244,26 +242,243 @@ function App() {
     //first step in modifying the inner wheel values positions
     const innerNew = [...inner];
     const innerMod = innerNew.splice(0, position);
+    setInner(innerNew.concat(...innerMod));
+
     //update data based on the new inner and existing outer wheel positions
     // updateValues(innerNew.concat(...innerMod), outer);
     //set the new inner wheel positions for rendering
-    setInner(innerNew.concat(...innerMod));
 
     const logoTitleNew = [...layers.logoTitle];
     const logoTitleMod = logoTitleNew.splice(0, position);
     const dataLogoTitle = logoTitleNew.concat(logoTitleMod);
 
-    // declare the async data fetching function
+    let dataOne = [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      wheelData.asanoComputing,
+      "",
+      "Space Colony",
+      "",
+      wheelData.spacedock,
+      "",
+      "",
+      "flatline",
+    ];
+    //since this data is in the order of the initial render we must first readjust using our stored variable
+    let modOne = dataOne.splice(0, topPosition);
+    dataOne = dataOne.concat(modOne);
+    //now adjust it to the new position based on the clicked position
+    modOne = dataOne.splice(0, position);
+    dataOne = dataOne.concat(modOne);
+    //repeat the process for layers two through eight
+    let dataTwo = [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "ZionCluster",
+      "Asano Computing",
+      "",
+      wheelData.spaceColony,
+      "",
+      "Spacedock",
+      "Marcus Garvey",
+      "",
+      wheelData.flatline,
+    ];
+    let modTwo = dataTwo.splice(0, topPosition);
+    dataTwo = dataTwo.concat(modTwo);
+    modTwo = dataTwo.splice(0, position);
+    dataTwo = dataTwo.concat(modTwo);
+
+    let dataThree = [
+      "AI",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      wheelData.zionCluster,
+      "",
+      "Cryptology",
+      "",
+      "",
+      "",
+      wheelData.marcusGarvey,
+      "",
+      "",
+    ];
+    let modThree = dataThree.splice(0, topPosition);
+    dataThree = dataThree.concat(modThree);
+    modThree = dataThree.splice(0, position);
+    dataThree = dataThree.concat(modThree);
+
+    let dataFour = [
+      wheelData.ai,
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      wheelData.cryptology,
+      "",
+      "Bank of Berne",
+      "",
+      "",
+      "",
+      "",
+    ];
+    let modFour = dataFour.splice(0, topPosition);
+    dataFour = dataFour.concat(modFour);
+    modFour = dataFour.splice(0, position);
+    dataFour = dataFour.concat(modFour);
+
+    let dataFive = [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "Chiba City",
+      "",
+      "",
+      "",
+      wheelData.bankOfBerne,
+      "",
+      wheelData.bankOfZurich,
+      "",
+      "",
+    ];
+    let modFive = dataFive.splice(0, topPosition);
+    dataFive = dataFive.concat(modFive);
+    modFive = dataFive.splice(0, position);
+    dataFive = dataFive.concat(modFive);
+
+    let dataSix = [
+      wheelData.fujiElectric,
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      wheelData.chibaCity,
+      "",
+      "",
+      "Holy Joystick",
+      "",
+      "",
+      "Bank of Zurich",
+      "Compu-judge",
+      "",
+    ];
+    let modSix = dataSix.splice(0, topPosition);
+    dataSix = dataSix.concat(modSix);
+    modSix = dataSix.splice(0, position);
+    dataSix = dataSix.concat(modSix);
+
+    let dataSeven = [
+      "Fuji Electric",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "Hitachi Biotech",
+      "",
+      wheelData.holyJoystick,
+      "",
+      "Ono-Sendai",
+      "",
+      wheelData.compuJudge,
+      "",
+    ];
+    let modSeven = dataSeven.splice(0, topPosition);
+    dataSeven = dataSeven.concat(modSeven);
+    modSeven = dataSeven.splice(0, position);
+    dataSeven = dataSeven.concat(modSeven);
+
+    let dataEight = [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      wheelData.hitachiBiotech,
+      "",
+      "",
+      "",
+      wheelData.onoSendai,
+      "",
+      "",
+      "",
+    ];
+    let modEight = dataEight.splice(0, topPosition);
+    dataEight = dataEight.concat(modEight);
+    modEight = dataEight.splice(0, position);
+    dataEight = dataEight.concat(modEight);
+
+    setLayers({
+      ...layers,
+      layerOne: dataOne,
+      layerTwo: dataTwo,
+      layerThree: dataThree,
+      layerFour: dataFour,
+      layerFive: dataFive,
+      layerSix: dataSix,
+      layerSeven: dataSeven,
+      layerEight: dataEight,
+      logoTitle: dataLogoTitle,
+    });
+
+    //now refresh each of the eight wheel data layers with the updated variable values
+  }
+
+  //shifts the outer wheel
+  function outerWheelShift(position) {
+    const outerNew = [...outer];
+    const outerMod = outerNew.splice(0, position);
+    setOuter(outerNew.concat(outerMod));
+  }
+  //a useEffect hook, rerun the innerWheel data calc (unmoved) when the outer wheel is updated
+  useEffect(() => {
+    innerWheelShift(0);
+  }, [outer, wheelData]);
+
+  //a useEffect hook to request new updated data from the mongodb database each time the outer or inner wheel rotates
+
+  useEffect(() => {
+    //data fetch function which defaults to a call based on the default top values of chatsubo and cyberdeck on the wheel
     const fetchWheelData = async (term = "chatsuboCyberdeck") => {
       // get the data from the api
       const reponse = await axios.get(
         `http://localhost:5555/datawheel/fetchdata?term=${term}`
       );
       const newData = await JSON.parse(reponse.data[0].data);
-      await console.log("this is called data", newData);
-      // updateValues(newData);
 
-      let wheelData = {
+      //assign the database data to the parameters of the wheel
+
+      const present = {
         ai: newData["AI"],
         fujiElectric: newData["Fuji Electric"],
         zionCluster: newData["Zion Cluster"],
@@ -281,259 +496,12 @@ function App() {
         compuJudge: newData["Compu-judge"],
         flatline: newData["flatline"],
       };
-
-      let dataOne = [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        wheelData.asanoComputing,
-        "",
-        "Space Colony",
-        "",
-        wheelData.spacedock,
-        "",
-        "",
-        "flatline",
-      ];
-      //since this data is in the order of the initial render we must first readjust using our stored variable
-      let modOne = dataOne.splice(0, topPosition);
-      dataOne = dataOne.concat(modOne);
-      //now adjust it to the new position based on the clicked position
-      modOne = dataOne.splice(0, position);
-      dataOne = dataOne.concat(modOne);
-      //repeat the process for layers two through eight
-      let dataTwo = [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "ZionCluster",
-        "Asano Computing",
-        "",
-        wheelData.spaceColony,
-        "",
-        "Spacedock",
-        "Marcus Garvey",
-        "",
-        wheelData.flatline,
-      ];
-      let modTwo = dataTwo.splice(0, topPosition);
-      dataTwo = dataTwo.concat(modTwo);
-      modTwo = dataTwo.splice(0, position);
-      dataTwo = dataTwo.concat(modTwo);
-
-      let dataThree = [
-        "AI",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        wheelData.zionCluster,
-        "",
-        "Cryptology",
-        "",
-        "",
-        "",
-        wheelData.marcusGarvey,
-        "",
-        "",
-      ];
-      let modThree = dataThree.splice(0, topPosition);
-      dataThree = dataThree.concat(modThree);
-      modThree = dataThree.splice(0, position);
-      dataThree = dataThree.concat(modThree);
-
-      let dataFour = [
-        wheelData.ai,
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        wheelData.cryptology,
-        "",
-        "Bank of Berne",
-        "",
-        "",
-        "",
-        "",
-      ];
-      let modFour = dataFour.splice(0, topPosition);
-      dataFour = dataFour.concat(modFour);
-      modFour = dataFour.splice(0, position);
-      dataFour = dataFour.concat(modFour);
-
-      let dataFive = [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "Chiba City",
-        "",
-        "",
-        "",
-        wheelData.bankOfBerne,
-        "",
-        wheelData.bankOfZurich,
-        "",
-        "",
-      ];
-      let modFive = dataFive.splice(0, topPosition);
-      dataFive = dataFive.concat(modFive);
-      modFive = dataFive.splice(0, position);
-      dataFive = dataFive.concat(modFive);
-
-      let dataSix = [
-        wheelData.fujiElectric,
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        wheelData.chibaCity,
-        "",
-        "",
-        "Holy Joystick",
-        "",
-        "",
-        "Bank of Zurich",
-        "Compu-judge",
-        "",
-      ];
-      let modSix = dataSix.splice(0, topPosition);
-      dataSix = dataSix.concat(modSix);
-      modSix = dataSix.splice(0, position);
-      dataSix = dataSix.concat(modSix);
-
-      let dataSeven = [
-        "Fuji Electric",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "Hitachi Biotech",
-        "",
-        wheelData.holyJoystick,
-        "",
-        "Ono-Sendai",
-        "",
-        wheelData.compuJudge,
-        "",
-      ];
-      let modSeven = dataSeven.splice(0, topPosition);
-      dataSeven = dataSeven.concat(modSeven);
-      modSeven = dataSeven.splice(0, position);
-      dataSeven = dataSeven.concat(modSeven);
-
-      let dataEight = [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        wheelData.hitachiBiotech,
-        "",
-        "",
-        "",
-        wheelData.onoSendai,
-        "",
-        "",
-        "",
-      ];
-      let modEight = dataEight.splice(0, topPosition);
-      dataEight = dataEight.concat(modEight);
-      modEight = dataEight.splice(0, position);
-      dataEight = dataEight.concat(modEight);
-
-      setLayers({
-        ...layers,
-        layerOne: dataOne,
-        layerTwo: dataTwo,
-        layerThree: dataThree,
-        layerFour: dataFour,
-        layerFive: dataFive,
-        layerSix: dataSix,
-        layerSeven: dataSeven,
-        layerEight: dataEight,
-        logoTitle: dataLogoTitle,
-      });
+      //set the data using the use state parameter which will then trigger a new render and the other usestate
+      setWheelData(present);
     };
-
+    //call the function supplying the current top values of outer and inner wheels
     fetchWheelData(theMatrix[outer[0]][inner[0]]);
-
-    //now refresh each of the eight wheel data layers with the updated variable values
-  }
-  //shifts the outer wheel
-  function outerWheelShift(position) {
-    const outerNew = [...outer];
-    const outerMod = outerNew.splice(0, position);
-    setOuter(outerNew.concat(outerMod));
-  }
-  //a useEffect hook, rerun the innerWheel data calc (unmoved) when the outer wheel is updated
-  useEffect(() => {
-    innerWheelShift(0);
-    console.log("called");
-  }, [outer]);
-
-  // useEffect(() => {
-  //   // declare the async data fetching function
-  //   const fetchWheelData = async (term = "chatsuboCyberdeck") => {
-  //     // get the data from the api
-  //     const reponse = await axios.get(
-  //       `http://localhost:5555/datawheel/fetchdata?term=${term}`
-  //     );
-  //     const newData = await JSON.parse(reponse.data[0].data);
-  //     await console.log("this is called data", newData);
-  //     // updateValues(newData);
-  //     await setWheelData({
-  //       ai: newData["AI"],
-  //       fujiElectric: newData["Fuji Electric"],
-  //       zionCluster: newData["Zion Cluster"],
-  //       chibaCity: newData["Chiba City"],
-  //       asanoComputing: newData["Asano Computing"],
-  //       hitachiBiotech: newData["Hitachi Biotech"],
-  //       cryptology: newData["Cryptology"],
-  //       spaceColony: newData["Space Colony"],
-  //       holyJoystick: newData["Holy Joystick"],
-  //       bankOfBerne: newData["Bank of Berne"],
-  //       spacedock: newData["Spacedock"],
-  //       onoSendai: newData["Ono-Sendai"],
-  //       marcusGarvey: newData["Marcus Garvey"],
-  //       bankOfZurich: newData["Bank of Zurich"],
-  //       compuJudge: newData["Compu-judge"],
-  //       flatline: newData["flatline"],
-  //     });
-  //     await console.log("this is wheel data", { ...wheelData });
-  //   };
-
-  //   // call the function
-  //   fetchWheelData(theMatrix[outer[0]][inner[0]])
-  //     // make sure to catch any error
-  //     .catch(console.error);
-  // }, [outer, inner]);
+  }, [outer, inner]);
 
   return (
     <div className="App">
